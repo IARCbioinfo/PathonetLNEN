@@ -26,16 +26,14 @@ $ conda env create -f environment.yml
 ```
 
 ## Datasets
-This method has been tested for 3 types of histological images:
-+ Haematoxylin and Eosin (HE) | Haematoxylin, Eosin Saffron (HES) stained WSI:
-    + Number of tumor tiles (for train and test) = 12,991 (69 patients)
-    + Number of non-tumor tiles (for test) = 4,815 (33 patients)
-+ Ki-67 immunohistochemical stained WSI:
-    + Number of tumor tiles (for train and test) = 19,053 (77 patients)
-    + Number of non-tumor tiles (for test) = 10,259 (40 patients)
-+ Phosphohistone histone H3 (PHH3)-stained WSIs can be segmented using Ki-67 tumor tiles as a training set.
+This method has been tested for 2 types of immunostained WSI:
++ Ki-67:
+    + Number of LNEN Ki-67 annotated tiles = 848 (5 patients)
+    + To train Pathonet these tiles have been combined to the breast tumor annoted tiles, from the [SHIDC-B-Ki-67 data set](https://shiraz-hidc.com/service/ki-67-dataset/) used in the original paper.
++ PHH3:
+    + Number of LNEN PHH3 annotated tiles = 2375 (21 patients)
++ LNEN tiles have autotated semi-automatically using the [QuPath](https://qupath.github.io/) software.
 
-**These two dataset are available on request from mathiane[at]iarc[dot]who[dot]int and will soon be available online.**
 
 ## Code Organization
 - ./custom_datasets - contains dataloaders for TumorNormalDataset :
