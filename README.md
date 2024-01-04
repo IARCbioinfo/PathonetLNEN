@@ -34,28 +34,16 @@ This method has been tested for 2 types of immunostained WSI:
     + Number of LNEN PHH3 annotated tiles = 2375 (21 patients)
 + LNEN tiles have autotated semi-automatically using the [QuPath](https://qupath.github.io/) software.
 
+**These two dataset are available on request from mathiane[at]iarc[dot]who[dot]int and will soon be available online.**
 
-## Code Organization
-- ./custom_datasets - contains dataloaders for TumorNormalDataset :
-    - The dataloader is based on a file listing the path to the tiles.
-    -  Examples: `./Datasets/ToyTrainingSetKi67Tumor.txt` and `./Datasets/ToyTestSetKi67Tumor.txt`
+## Step 1: Tiles preprocessing 
+- Convert annotation files listing all cells on each tile, with their coordinates and class (positive or negative for an immunolabel) in `.json` format to matrices saved in `.npy` format.
+- Command line:
+```
+python preprocessin.py --inputdir PathonetPPH3Dataset/train256 --outputdir PathonetPPH3DatasetPrepocessed/train256
+```
 
-- ./custom_models 
-    - contains pretrained `resnet` feature extractors:
-        - For the tumor segmentations tasks we used a wide-Resnet 50 (see: `resnet.py` line 352)
-        -  *Note: additional features extrators can be found in the original [CFlow AD repository](https://github.com/gudovskiy/cflow-ad)*
-    - the `utils` contains functions to save and load the checkpoint
-
-
-- ./FrEIA - clone from [https://github.com/VLL-HD/FrEIA](https://github.com/VLL-HD/FrEIA) repository.
-
-- models - Build encoder and decoder
-    - The encoder is based on a pretrained resnet (see: `custom_models/resnet.py`)
-    - The decoder is based on FrEIA modules
-
-- main: Main script to train and test the model.
-
-## Training Models
+## Step 2: Training the model
 - An example of the configurations used to segment HE/HES, Ki-67 and PHH3 WSI is available in `Run/Train/TumorNormal/TrainToyDataKi67.sh`
 - *Configs can be viwed in `config.py`*
 - The commands below are used to train the model based on the toy data set:
