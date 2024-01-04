@@ -1,0 +1,28 @@
+{
+    "imageShape": [
+        1228,
+        1228,
+        3
+    ],
+    "inputShape": [
+        256,
+        256,
+        3
+    ],
+    "pretrainedModel": "CheckpointKi67/Pathonet_Ki67_for_LNEN.hdf5",
+    "model": "PathoNet",
+    "data_path": "",
+    "loss": "mse",
+    "optimizer": "adam",
+    "lr": 0.001,
+    "batchSize": 16,
+    "epoches": 30,
+    "validationSplit": 0.2,
+    "thresholds": [
+        70,
+        75,
+        40
+    ],
+    "guaMaxValue": 255,
+    "minDistance": 5
+}
