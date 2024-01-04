@@ -65,3 +65,4 @@ python evaluation.py --inputPath test256_LNENonly --configPath configs/eval_Ki67
 + :construction: Add `demo.py` > Inference script
 + :construction: Add NetworkX construction
 + :construction: Add Spatial statistics
++ :construction: Add presentation WSI
