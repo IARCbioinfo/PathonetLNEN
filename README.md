@@ -40,15 +40,14 @@ This method has been tested for 2 types of immunostained WSI:
 - Convert annotation files listing all cells on each tile, with their coordinates and class (positive or negative for an immunolabel) in `.json` format to matrices saved in `.npy` format.
 - Command line:
 ```
-python preprocessin.py --inputdir PathonetPPH3Dataset/train256 --outputdir PathonetPPH3DatasetPrepocessed/train256
+python preprocessin.py --inputdir PPH3Dataset/train256 --outputdir PPH3DatasetPrepocessed/train256
 ```
 
-## Step 2: Training the model
-- An example of the configurations used to segment HE/HES, Ki-67 and PHH3 WSI is available in `Run/Train/TumorNormal/TrainToyDataKi67.sh`
-- *Configs can be viwed in `config.py`*
-- The commands below are used to train the model based on the toy data set:
+## Step 2: Training
+- An example of the configurations used to measure automatically the Ki-67 expression is given in `configs/train_Ki67_LNEN.json
+- The commands below are used to train the model:
 ```
-bash Run/Train/TumorNormal/TrainToyDataKi67.sh
+python train.py --configPath configs/train_Ki67_LNEN.json
 ```
 - **Warnings: Network weights will be saved for all epochs in `config.weights-dir/config.class-name/meta-epoch/ModelName_ClassName_MetaEpoch_SubEpoch.pt`. Each checkpoint creates is associated 903MB file.**
 
