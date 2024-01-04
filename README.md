@@ -44,41 +44,24 @@ python preprocessin.py --inputdir PPH3Dataset/train256 --outputdir PPH3DatasetPr
 ```
 
 ## Step 2: Training
-- An example of the configurations used to measure automatically the Ki-67 expression is given in `configs/train_Ki67_LNEN.json
+- An example of the configurations used to train the model to automatically measure Ki-67 expression is given in `configs/train_Ki67_LNEN.json`
 - The commands below are used to train the model:
 ```
 python train.py --configPath configs/train_Ki67_LNEN.json
 ```
-- **Warnings: Network weights will be saved for all epochs in `config.weights-dir/config.class-name/meta-epoch/ModelName_ClassName_MetaEpoch_SubEpoch.pt`. Each checkpoint creates is associated 903MB file.**
+- The trained model weights for Ki-67-stained LNEN WSIs are stored in the file `CheckpointKi67/Pathonet_Ki67_for_LNEN.hdf5`
 
-## Testing Pretrained Models
-- Download pretrained weights are available on request and will be soon available online 
-- An example of the configurations used to infer the test set is gien in `Run/Test/TumorNormal/TestToyDataset.sh`
+## Step 3: Test
+- An example of the configurations used to test the model is given in `configs/eval_Ki67_LNEN.json`
+- The commands below are used to evaluate the model:
 ```
-bash Run/Test/TumorNormal/TestToyDataset.sh
+python evaluation.py --inputPath test256_LNENonly --configPath configs/eval_Ki67_LNEN.json 
 ```
-- Main configurations:
-    + checkpoint: Path to model weights to be loaded to infer the test tiles.
-    + viz-dir: Directory where the result table will be saved.
-    + viz-anom-map: If specified, all anomaly maps will be written to the `viz-dir` directory in `.npy` format.
-
-## Results exploration
-For each tile, `results_table.csv` summarises:
-- Its path, which may include the patient ID
-- Binary tile labels, useful for sorted datasets: Tumour = 2 and Non-tumour = 1 
-- Max anomaly scores: value of the highest anomaly score of the tile
-- Mean anomaly scores: average anomaly score of the tile
-
-**The distributions of these score are used to segment the WSI.**
-
-An example of result exploration for the segmentation of HE/HES WSI is given in `ExploreResultsHETumorSeg.html`.
-
-## Get tumor segmentation map 
-
-The `TumorSegmentationMaps.py` script is used to create the tumour segmentation map for a WSI. An example configuration is given in `ExRunTumorSegmentationMap.sh`. The results of this script are stored in the `Example_SegmentationMap_PHH3` folder, which also gives an example of the model's performance in segmenting a PHH3-immunostained WSI.
 
 ## TO DO LIST
 
-+ :construction: Check parallel training 
-+ :construction: Check parallel test
-+ :construction: Model checkpoints Ki-67 and HES/HE
++ :construction: Add PHH3 configs and weights
++ :construction: Optimized threshold files
++ :construction: Add `demo.py` > Inference script
++ :construction: Add NetworkX construction
++ :construction: Add Spatial statistics
