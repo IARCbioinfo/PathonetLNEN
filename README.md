@@ -96,8 +96,8 @@ python table_of_cells_after_segmentation.py --inputdir ~/LNENWork/Ki67InferenceP
 - The `segmentation_dir` should follow the following architecture:
     - `segmentation_dir`
         - `patient_id`
-            - `prediction_tumor_normal_TNE1983.csv`
-- The table  `prediction_tumor_normal_TNE1983.csv` contains the following information:
+            - `prediction_tumor_normal_{patient_id}.csv`
+- For example the table  `prediction_tumor_normal_TNE1983.csv` contains the following information:
 
 |file_path|PredTumorNomal                                                                                      |
 |---------|----------------------------------------------------------------------------------------------------|
@@ -106,7 +106,7 @@ python table_of_cells_after_segmentation.py --inputdir ~/LNENWork/Ki67InferenceP
 |KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_21505_10241.jpg|Tumor                                                                                               |
 |KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_18945_21505.jpg|Normal                      
 
-- The output table is stored in  `inputdir/patient_id/patient_id_cells_detected_segmented.csv` and will contains the following information:
+- The output table is stored in  `inputdir/patient_id/{patient_id}_cells_detected_segmented.csv` and will contains the following information:
 
 |x  |y                                                                                                   |label            |
 |---|----------------------------------------------------------------------------------------------------|-----------------|
@@ -115,10 +115,19 @@ python table_of_cells_after_segmentation.py --inputdir ~/LNENWork/Ki67InferenceP
 |17616.0|6663.0                                                                                              |2                |
 
 
-*Note: In this table, the label 1 corresponds to a positive cell and 2 to a negative cell.
+*Note: In this table, the label 1 corresponds to a positive cell and 2 to a negative cell.*
+
+### Step 6.2: Compute sptatial metrics according to graph theory
+- - The `graph_theory_analysis.py` script can be used to create a graph of the positive cells detected by Pathonet by connecting all the cells in a 2000 micron^2 area, according to which global and local spatial statistics are calculated.
+- Command line:
+```
+python graph_theory_analysis.py --rootdir /LNENWork/Ki67InferencePathonet --patient_id TNE1983
+```
+- This script generated the following output files in the `rootdir/patient_id` folder:
+    - `{patient_id}_2000_micron.gpickle`: graph
+    - `{patient_id}_graph_2000_micron_global_features.json`: global spatial statistics
+    - `{patient_id}_graph_2000_micron_local_features_segmented.csv`: local spatial statistics
+
 ## TO DO LIST
 
-+ :construction: Add NetworkX construction
-+ :construction: Table of cells
-+ :construction: Add Spatial statistics
 + :construction: Add presentation WSI
