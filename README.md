@@ -44,12 +44,12 @@ python preprocessin.py --inputdir PPH3Dataset/train256 --outputdir PPH3DatasetPr
 ```
 
 ## Step 2: Training
-- An example of the configurations used to train the model to automatically measure Ki-67 expression is given in `configs/train_Ki67_LNEN.json`
+- An example of the configurations used to train the model to automatically measure Ki-67 expression is given in `configs/train_Ki67_LNEN.json`; similarly an example for the detection of PHH3 positive cells is given in `configs/train_PHH3_LNEN.json`.
 - The command below is used to train the model:
 ```
 python train.py --configPath configs/train_Ki67_LNEN.json
 ```
-- The trained model weights for Ki-67-stained LNEN WSIs are stored in the file `CheckpointKi67/Pathonet_Ki67_for_LNEN.hdf5`
+- The trained model weights for Ki-67-stained LNEN WSIs is stored in the file `CheckpointKi67/Pathonet_Ki67_for_LNEN.hdf5`, and for PHH3-stained LNEN WSIs in `CheckpointPHH3/CheckpointPHH3_70epochs.hdf5`
 
 ## Step 3: Test
 - An example of the configurations used to test the model is given in `configs/eval_Ki67_LNEN.json`
@@ -88,7 +88,6 @@ python infer.py --inputPath KI67_Tiles_256_256_40x/ --configPath configs/eval_Ki
 ## TO DO LIST
 
 + :construction: Add PHH3 configs and weights
-+ :construction: Add `demo.py` > Inference script
 + :construction: Add NetworkX construction
 + :construction: Add Spatial statistics
 + :construction: Add presentation WSI

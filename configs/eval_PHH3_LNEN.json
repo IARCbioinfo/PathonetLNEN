@@ -1,0 +1,29 @@
+{
+    "imageShape": [
+        1228,
+        1228,
+        3
+    ],
+    "inputShape": [
+        256,
+        256,
+        3
+    ],
+    "pretrainedModel": "CheckpointPHH3/CheckpointPHH3_70epochs.hdf5" , 
+        "classes": 3,
+    "model": "PathoNet",
+    "logPath": "logs/",
+    "data_path": "",
+    "loss": "mse",
+    "optimizer": "adam",
+    "lr": 0.001,
+    "batchSize": 32,
+    "epoches": 30,
+    "thresholds": [
+        65,
+        100,
+        40
+    ],
+    "guaMaxValue": 255,
+    "minDistance": 5
+}
