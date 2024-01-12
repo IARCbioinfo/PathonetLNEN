@@ -59,8 +59,8 @@ python evaluation.py --inputPath test256_LNENonly --configPath configs/eval_Ki67
 ```
 
 ## Step 4: Optimize the cell detection threshold
-- The post-processing pipeline applied after UNET uses dea seuila to establish which are the "true cells". We propose to optimize these thresholds for marker-positive and marker-negative cells using the `eval_opt_thresholds.py` script.
-- The command below is used to run the script for channel 0 associated with cells detected as marker positive:
+- The post-processing pipeline applied after UNET uses two thresholds to establish which are the "true cells". We propose to optimize these thresholds for marker-positive and marker-negative cells using the `eval_opt_thresholds.py` script.
+- The following command is used to run the script for channel 0, which is associated with cells detected as marker positive:
 ```
 python eval_opt_thresholds.py --inputPath test256 --configPath configs/eval_Ki67_LNEN.json --dataname OptTh0_pos_cells.csv --minth 75 --minth 95 --channel 0
 ```
@@ -85,9 +85,40 @@ python infer.py --inputPath KI67_Tiles_256_256_40x/ --configPath configs/eval_Ki
     - `jpg` annotated image if the `--visualization` argument is specified 
 - The `outputPath` folder will have the same organization as the `inputPath` folder.
 
+## Step 6: Calculate spatial statistics:
+### Step 6.1: Create a table of detected cells within the tumour area
+-In order to create the graph needed to compute the spatial statistics, we first need to create a table of detected cells within the tumour area, with their xy coordinates and class.
+- For this we assume that the tumour has been previously segmented as described in [TumorSegmentationCFlowAD](https://github.com/IARCbioinfo/TumorSegmentationCFlowAD) github repository.
+- Command line:
+```
+python table_of_cells_after_segmentation.py --inputdir ~/LNENWork/Ki67InferencePathonet --patient_id TNE1983 --segmentation_dir TumorSegmentation_Ki67
+```
+- The `segmentation_dir` should follow the following architecture:
+    - `segmentation_dir`
+        - `patient_id`
+            - `prediction_tumor_normal_TNE1983.csv`
+- The table  `prediction_tumor_normal_TNE1983.csv` contains the following information:
+
+|file_path|PredTumorNomal                                                                                      |
+|---------|----------------------------------------------------------------------------------------------------|
+|KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_11777_28161.jpg|Tumor                                                                                               |
+|KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_16385_7169.jpg|Tumor                                                                                               |
+|KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_21505_10241.jpg|Tumor                                                                                               |
+|KI67_Tiling_256_256_40x/TNE1983.svs/accept/TNE1983.svs_18945_21505.jpg|Normal                      
+
+- The output table is stored in  `inputdir/patient_id/patient_id_cells_detected_segmented.csv` and will contains the following information:
+
+|x  |y                                                                                                   |label            |
+|---|----------------------------------------------------------------------------------------------------|-----------------|
+|17659.5|6669.5                                                                                              |1                |
+|17637.785720825195|6902.785720825195                                                                                   |1                |
+|17616.0|6663.0                                                                                              |2                |
+
+
+*Note: In this table, the label 1 corresponds to a positive cell and 2 to a negative cell.
 ## TO DO LIST
 
-+ :construction: Add PHH3 configs and weights
 + :construction: Add NetworkX construction
++ :construction: Table of cells
 + :construction: Add Spatial statistics
 + :construction: Add presentation WSI
