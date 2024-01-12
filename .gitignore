@@ -65,3 +65,6 @@ stdout.txt
 
 # network weights
 #CheckpointKi67/
+
+# Inference folder
+Inference/

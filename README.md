@@ -68,7 +68,22 @@ python eval_opt_thresholds.py --inputPath test256 --configPath configs/eval_Ki67
 - Results are saved in the table specified by `dataname`.
 - To optimize the threshold associated with cells detected as negative at the marker, specify `--channel 1`.
 
-
+## Step 5: Inference
+- The `infer.py` script is used to run the model in inference mode.
+- Command line
+```
+python infer.py --inputPath KI67_Tiles_256_256_40x/ --configPath configs/eval_Ki67_LNEN.json --outputPath Inference --save_numpy --visualization
+``` 
+- The `inputPath` folder must have the following structure:
+    - `inputPath`
+        - patient_ID
+            - accept
+                - patient_id_tiles_x_y.jpg
+- The inference script saves the inference results for each tile in three formats:
+    - `json` file (default)
+    - `npy` numpy matrix if the `--save_numpy` argument is specified 
+    - `jpg` annotated image if the `--visualization` argument is specified 
+- The `outputPath` folder will have the same organization as the `inputPath` folder.
 
 ## TO DO LIST
 
