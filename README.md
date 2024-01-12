@@ -45,7 +45,7 @@ python preprocessin.py --inputdir PPH3Dataset/train256 --outputdir PPH3DatasetPr
 
 ## Step 2: Training
 - An example of the configurations used to train the model to automatically measure Ki-67 expression is given in `configs/train_Ki67_LNEN.json`
-- The commands below are used to train the model:
+- The command below is used to train the model:
 ```
 python train.py --configPath configs/train_Ki67_LNEN.json
 ```
@@ -53,15 +53,26 @@ python train.py --configPath configs/train_Ki67_LNEN.json
 
 ## Step 3: Test
 - An example of the configurations used to test the model is given in `configs/eval_Ki67_LNEN.json`
-- The commands below are used to evaluate the model:
+- The command below is used to evaluate the model:
 ```
 python evaluation.py --inputPath test256_LNENonly --configPath configs/eval_Ki67_LNEN.json 
 ```
 
+## Step 4: Optimize the cell detection threshold
+- The post-processing pipeline applied after UNET uses dea seuila to establish which are the "true cells". We propose to optimize these thresholds for marker-positive and marker-negative cells using the `eval_opt_thresholds.py` script.
+- The command below is used to run the script for channel 0 associated with cells detected as marker positive:
+```
+python eval_opt_thresholds.py --inputPath test256 --configPath configs/eval_Ki67_LNEN.json --dataname OptTh0_pos_cells.csv --minth 75 --minth 95 --channel 0
+```
+- Network performance is tested for all thresholds between `minth` and `minth` in steps of 5 units.
+- Results are saved in the table specified by `dataname`.
+- To optimize the threshold associated with cells detected as negative at the marker, specify `--channel 1`.
+
+
+
 ## TO DO LIST
 
 + :construction: Add PHH3 configs and weights
-+ :construction: Optimized threshold files
 + :construction: Add `demo.py` > Inference script
 + :construction: Add NetworkX construction
 + :construction: Add Spatial statistics
