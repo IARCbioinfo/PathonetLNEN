@@ -1,3 +1,4 @@
+![PresentationImg](ImgPresentation.png)
 # Automatic assessment of LNEN tumor proliferative active with Pathonet:
 Supervised deep learning network dedicated to the detection of Ki-67 or PHH3 positive cells on immunostained whole slide images (WSI). This network is an adaptation of the [Pathonet model](https://www.nature.com/articles/s41598-021-86912-w) for pulmonary neuroendocrine neoplasms (LNEN); it classifies cells according to two classes, either negative or positive to an immunomarker. This directory also allows the creation of spatial statistics based on graph construction, as proposed by Bullloni and colleagues [See : Automated analysis of proliferating cells spatial organization predicts prognosis in lung neuroendocrine neoplasms, Cancers 2021](https://www.mdpi.com/2072-6694/13/19/4875)
 
@@ -127,7 +128,3 @@ python graph_theory_analysis.py --rootdir /LNENWork/Ki67InferencePathonet --pati
     - `{patient_id}_2000_micron.gpickle`: graph
     - `{patient_id}_graph_2000_micron_global_features.json`: global spatial statistics
     - `{patient_id}_graph_2000_micron_local_features_segmented.csv`: local spatial statistics
-
-## TO DO LIST
-
-+ :construction: Add presentation WSI
